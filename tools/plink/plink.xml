@@ -1,7 +1,7 @@
 <tool id='plink' name='plink' version='@TOOL_VERSION@+galaxy@VERSION_SUFFIX@'>
     <macros>
         <token name='@TOOL_VERSION@'>1.90b6.21</token>
-        <token name='@VERSION_SUFFIX@'>0</token>
+        <token name='@VERSION_SUFFIX@'>1</token>
         <xml name='template_sanitizer'>
             <sanitizer>
                 <valid initial='default'>
