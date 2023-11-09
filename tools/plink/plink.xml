@@ -384,7 +384,7 @@
             #end if
         #end if
 
-    #elif $functions.func == 'scoreing':
+    #elif $functions.func == 'scoring':
         --score $functions.score_file $functions.variant_id_i $functions.allel_codes_j $functions.scores_k $functions.header $functions.sum
 ##    #else:
 ##        --rerun $functions.logfile
@@ -453,7 +453,7 @@
                 <option value='stratification'>Population stratification</option>
                 <option value='association'>Association analysis</option>
                 <option value='ibd'>Identity-by-descent</option>
-                <option value='scoreing'>Apply a linear scoring system</option>
+                <option value='scoring'>Apply a linear scoring system</option>
                 <!-- <option value='rerun'>Rerun</option> -->
             </param>
             <when value='filtering'>
@@ -974,7 +974,7 @@
                 </conditional>
                 <param name='lambda' type='float' label='Lambda value' optional='true'/>
             </when>
-            <when value='scoreing'>
+            <when value='scoring'>
                 <param name='score_file' format='tabular' type='data' label='Scoring system which should be applied to all samples'/>
                 <param name="variant_id_i" type="data_column" data_ref="score_file" label="Variant ID column"/>
                 <param name="allel_codes_j" type="data_column" data_ref="score_file" label="Allel column"/>
@@ -1077,7 +1077,7 @@
         
         <!--scores-->
         <data name='scores' format='tabular' from_work_dir='plink_output/plink_output.profile.tab' label='${tool.name}: Scores'>
-            <filter>functions['func'] == 'scoreing'</filter>
+            <filter>functions['func'] == 'scoring'</filter>
         </data>
 
         <!--Stratifiction-->
@@ -1427,7 +1427,7 @@
                 </conditional>
             </section>
             <conditional name='functions'>
-                <param name='func' value='scoreing'/>
+                <param name='func' value='scoring'/>
                 <param name='score_file' value='scores_file.csv'/>
                 <param name='variant_id_i' value='1'/>
                 <param name='allel_codes_j' value='2'/>
