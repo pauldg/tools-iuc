@@ -972,10 +972,10 @@
                 <param name='lambda' type='float' label='Lambda value' optional='true'/>
             </when>
             <when value='scoreing'>
-                <param name='score_file' format='txt' type='data' label='Scoring system which should be applied to all samples'/>
-                <param name="variant_id_i" type="integer" value="1" label="Variant ID column"/>
-                <param name="allel_codes_j" type="integer" value="2" label="Allel column"/>
-                <param name="scores_k" type="integer" value="3" label="Score column"/>
+                <param name='score_file' format='tabular' type='data' label='Scoring system which should be applied to all samples'/>
+                <param name="variant_id_i" type="data_column" data_ref="score_file" label="Variant ID column"/>
+                <param name="allel_codes_j" type="data_column" data_ref="score_file" label="Allel column"/>
+                <param name="scores_k" type="data_column" data_ref="score_file" label="Score column"/>
                 <param name='header' type='boolean' truevalue='header' falsevalue='' checked='false' label='Is a header line present in the scores file?'/>
 
                 <param name="sum" type="select" label="How to combine the valid per-variant scores?" help="Average is the default, but it can be changed to sum.">
