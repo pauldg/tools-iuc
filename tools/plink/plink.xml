@@ -50,6 +50,8 @@
     </xrefs>
     <requirements>
         <requirement type='package' version='@TOOL_VERSION@'>plink</requirement>
+        <requirement type='package' version='5.3.0'>gawk</requirement>
+
     </requirements>
     <command detect_errors='exit_code'><![CDATA[
 
@@ -413,6 +415,7 @@
     && cp plink_output/plink_output.bed '$plink_out.extra_files_path/RgeneticsData.bed'
     && cp plink_output/plink_output.bim '$plink_out.extra_files_path/RgeneticsData.bim'
     && cp plink_output/plink_output.fam '$plink_out.extra_files_path/RgeneticsData.fam'
+    && awk -v OFS="\t" '{$1=$1; print}' plink_output/plink_output.profile > plink_output/plink_output.profile.tab
     ]]></command>
     <inputs>
         <section name='inputs' title='Data inputs' expanded='true'>
@@ -1072,6 +1075,11 @@
             <filter>functions['func'] == 'ibd' and functions['genome']['output_genome']</filter>
         </data>
         
+        <!--scores-->
+        <data name='scores' format='tabular' from_work_dir='plink_output/plink_output.profile.tab' label='${tool.name}: Scores'>
+            <filter>functions['func'] == 'scoreing'</filter>
+        </data>
+
         <!--Stratifiction-->
         <data name='mds' format='txt' from_work_dir='plink_output/plink_output.mds' label='${tool.name}: MDS'>
             <filter>functions['func'] == 'stratification' and functions['cluster']['cluster'] == 'Yes' and functions['cluster']['mds']['mds_scaling'] == 'Yes'</filter>
@@ -1412,28 +1420,23 @@
                 <conditional name='inputs'>
                     <param name='filetype' value='bfile'/>
                     <param name='bed' value='' ftype="pbed">
-                        <composite_data value="scores/country1_noduplicates.bim"/>
-                        <composite_data value="scores/country1_noduplicates.bed"/>
-                        <composite_data value="scores/country1_noduplicates.fam"/>
+                        <composite_data value="plink.bim"/>
+                        <composite_data value="plink.bed"/>
+                        <composite_data value="plink.fam"/>
                     </param>
                 </conditional>
             </section>
             <conditional name='functions'>
                 <param name='func' value='scoreing'/>
-                <param name='score_file' value='scores/scores_file.csv'/>
+                <param name='score_file' value='scores_file.csv'/>
                 <param name='variant_id_i' value='1'/>
                 <param name='allel_codes_j' value='2'/>
                 <param name='scores_k' value='3'/>
                 <param name='header' value='true'/>
                 <param name='sum' value='sum'/>
             </conditional>
-            <output name="plink_out">
-                <extra_files type="file" name="scores/scores_out.bed" value="test5_out.bed" compare='sim_size'/>
-                <extra_files type="file" name="scores/scores_out.bim" value="test5_out.bim"/>
-                <extra_files type="file" name="scores/scores_out.fam" value="test5_out.fam"/>
-            </output>
             <expand macro="log_out_assert"/>
-            <output name='prune_in' file='scores/plink.prune.in'/>
+            <output name='scores' file='plink_output.profile'/>
         </test>
     </tests>
     <help><![CDATA[
