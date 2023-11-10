@@ -426,6 +426,8 @@
                 </param>
                 <when value='bfile'>
                     <param format='pbed' name='bed' type='data' label='plink bed file'/>
+                    <param format='tabular,tsv' name='bim' type='data' label='plink bim file'/>
+                    <param format='txt' name='fam' type='data' label='plink fam file'/>
                 </when>
                 <when value='vcf'>
                     <param name='input' format='vcf,vcf_bgzip,bcf' type='data' label='VCF/BCF Input file'/>
